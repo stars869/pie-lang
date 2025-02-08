@@ -1,0 +1,65 @@
+-- 
+-- postulate 
+-- claim 
+-- define
+-- lambda 
+-- Pi
+-- match case 
+
+
+(postulate Type)
+
+(claim Bool Type)
+(claim true Bool)
+(claim false Bool)
+
+(claim Nat Type)
+(claim zero Nat)
+(claim suc (Pi Nat Nat))
+
+(define add (lambda (Pi (: x Nat) (: y Nat) Nat) 
+    (match x 
+        (case zero y)
+        (case (suc n) (suc (add n y)))
+    )
+))
+
+-- pair of Nat type
+(claim PairOfNat Type)
+(claim PairOfNat_cons (Pi Nat Nat PairOfNat))
+
+-- polymorphic pair type
+(claim Pair (Pi (: A Type) Type))
+(claim pair (Pi (: A Type) (: a A) (: b A) (Pair A)))
+
+(define first (lambda (Pi (: A Type) (: p (Pair A)) A)
+    (match p 
+        (case (pair _ x y) x)
+    )
+))
+
+(define second (lambda (Pi (: A Type) (: p (Pair A)) A)
+    (match p 
+        (case (pair _ x y) y)
+    )
+))
+
+-- polymorphic id func
+(define id (lambda (Pi (: A Type) (: a A) A)
+    a
+))
+
+(define id-nat (lambda (Pi (: a Nat) Nat)
+    (id Nat)
+))
+
+-- dependent type 
+
+(claim Vec (Pi ((: A Type) (: n Nat) Type)))
+(claim nil (Pi (: A Type) (Vec A zero)))
+(claim :: (Pi ((: A Type) (: n Nat) (: v (Vec A n)) (: a A)) (Vec A (suc n))))
+
+(claim VecType (Pi ((: A Type) (: n Nat) Type)))
+
+(claim nil (Pi (: A Type) (Vec A zero)))
+(claim :: (Pi ((: A Type) (: n Nat) (: v Vec A n) (: a A)) (Vec A (suc n))))
