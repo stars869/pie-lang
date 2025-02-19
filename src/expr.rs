@@ -1,21 +1,21 @@
-
 #[derive(Debug, Clone)]
-pub struct Identifier(String);
+pub struct Identifier(pub String);
 
 #[derive(Debug, Clone)]
 pub struct Parameter(Identifier, Box<Expr>);
 
 #[derive(Debug, Clone)]
-pub struct PiType(Vec<Parameter>, Box<Expr>);
+pub enum Expr {
+    Identifier(Identifier),
+    Pi(Vec<Parameter>, Box<Expr>),
+    Lambda(Vec<Parameter>, Box<Expr>),
+    Application(Box<Expr>, Vec<Expr>),
+    Match(Box<Expr>, Vec<(Box<Expr>, Box<Expr>)>),
+}
 
 #[derive(Debug, Clone)]
-pub enum Expr {
-    Identifier(String),
+pub enum Statement {
     Postulate(Identifier),
     Claim(Identifier, Box<Expr>),
-    Define(Identifier, Box<Expr>),
-    Parameter(Identifier, Box<Expr>), // Boxed Expr to prevent deep recursion
-    PiType(Vec<Parameter>, Box<Expr>),
-    Lambda(Box<PiType>, Box<Expr>),
-    Match(Box<Expr>, Vec<(Box<Expr>, Box<Expr>)>), // Boxed tuple elements
+    Define(Identifier, Box<Expr>, Box<Expr>),
 }
