@@ -1,16 +1,16 @@
 use std::fmt;
 
 #[derive(Debug, Clone)]
-pub enum RawExpr {
+pub enum SExpr {
     Identifier(String),
-    List(Vec<RawExpr>),
+    List(Vec<SExpr>),
 }
 
-impl fmt::Display for RawExpr {
+impl fmt::Display for SExpr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let output = match self {
-            RawExpr::Identifier(s) => s.clone(),
-            RawExpr::List(items) => {
+            SExpr::Identifier(s) => s.clone(),
+            SExpr::List(items) => {
                 let inner: Vec<String> = items.iter().map(|item| item.to_string()).collect();
                 format!("({})", inner.join(" "))
             }
