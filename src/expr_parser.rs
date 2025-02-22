@@ -1,5 +1,3 @@
-use either::Either;
-
 use crate::sexpr::SExpr;
 use crate::expr::{Identifier, Parameter, Expr, Statement, Pi};
 
@@ -22,6 +20,7 @@ pub fn parse_statement(raw: &SExpr) -> Result<Statement, String> {
     }
 }
 
+TODO "fix parsing Pi"
 fn parse_pi(raw: &[SExpr]) -> Result<Pi, String> {
     if raw.is_empty() {
         return Err("Pi must have at least one parameter and a return type".to_string());

@@ -1,10 +1,9 @@
+use std::fs;
+
 mod sexpr;
 mod sexpr_parser;
 mod expr;
 mod expr_parser;
-
-
-use std::fs;
 
 use sexpr_parser::parse_program;
 use expr_parser::parse_statement;
